@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天团线下调研（青岛/潍坊）2026.07</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background:#0a0e17; }
+  .stage { width:1920px; height:1080px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(min(calc(100vw/1920), calc(100vh/1080))); transform-origin:center; }
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; padding:72px 100px; color:#e2e6ed; }
+  .slide.active { display:flex; }
+  .slide.cover { justify-content:center; align-items:flex-start; padding-left:120px; background:radial-gradient(ellipse at 30% 50%, #1a2740 0%, #0a0e17 70%); }
+  .slide.cover::after { content:''; position:absolute; right:0; top:0; bottom:0; width:45%; background:linear-gradient(135deg, transparent 0%, rgba(59,130,246,0.08) 100%); pointer-events:none; }
+  .slide.cover .tag { display:inline-block; padding:6px 20px; border:1px solid rgba(59,130,246,0.5); border-radius:20px; font-size:15px; color:#60a5fa; letter-spacing:3px; margin-bottom:36px; }
+  .slide.cover h1 { font-size:56px; font-weight:700; line-height:1.3; max-width:800px; background:linear-gradient(135deg, #e2e6ed 0%, #93bbf0 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .slide.cover .meta { margin-top:40px; color:#7b8496; font-size:18px; letter-spacing:1px; }
+  .slide.cover .deco { position:absolute; right:120px; top:50%; transform:translateY(-50%); width:320px; height:320px; border:1px solid rgba(59,130,246,0.12); border-radius:50%; }
+  .slide.cover .deco::after { content:''; position:absolute; inset:40px; border:1px solid rgba(59,130,246,0.08); border-radius:50%; }
+
+  h2 { font-size:38px; font-weight:700; margin-bottom:40px; color:#e2e6ed; letter-spacing:1px; }
+  h2 .num { color:#3b82f6; margin-right:12px; font-weight:300; }
+  h3 { font-size:24px; font-weight:700; color:#93bbf0; margin:28px 0 14px; }
+  h4 { font-size:19px; font-weight:700; color:#c8d6e5; margin:18px 0 10px; }
+
+  .cols { display:flex; gap:40px; flex:1; }
+  .cols > div { flex:1; }
+  .card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 32px; margin-bottom:16px; }
+  .card.highlight { border-left:3px solid #3b82f6; }
+  .card.gold { border-left:3px solid #f59e0b; }
+  .card.green { border-left:3px solid #10b981; }
+  .card.purple { border-left:3px solid #8b5cf6; }
+
+  ul { list-style:none; padding:0; }
+  li { position:relative; padding:6px 0 6px 22px; font-size:17px; line-height:1.6; color:#bcc5d4; }
+  li::before { content:''; position:absolute; left:0; top:14px; width:6px; height:6px; border-radius:50%; background:#3b82f6; }
+  li.gold::before { background:#f59e0b; }
+  li.green::before { background:#10b981; }
+  li.purple::before { background:#8b5cf6; }
+
+  .stat-row { display:flex; gap:20px; margin-bottom:12px; }
+  .stat { flex:1; background:rgba(255,255,255,0.03); border-radius:12px; padding:20px 24px; text-align:center; border:1px solid rgba(255,255,255,0.05); }
+  .stat .num { font-size:42px; font-weight:700; color:#60a5fa; }
+  .stat .label { font-size:14px; color:#7b8496; margin-top:6px; }
+
+  .quote { background:rgba(59,130,246,0.06); border-left:3px solid #3b82f6; border-radius:0 10px 10px 0; padding:14px 20px; margin:8px 0; font-size:15px; color:#8896a8; font-style:italic; line-height:1.6; }
+  .quote .speaker { color:#60a5fa; font-style:normal; font-weight:600; margin-right:6px; }
+
+  .tag-row { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { display:inline-block; padding:5px 14px; border-radius:14px; font-size:14px; background:rgba(59,130,246,0.12); color:#93bbf0; }
+  .chip.amber { background:rgba(245,158,11,0.12); color:#fcd34d; }
+  .chip.green { background:rgba(16,185,129,0.12); color:#6ee7b7; }
+  .chip.purple { background:rgba(139,92,246,0.12); color:#c4b5fd; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  .grid-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:14px; }
+
+  .user-row { display:flex; align-items:center; gap:14px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .user-row:last-child { border-bottom:none; }
+  .user-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #3b82f6, #8b5cf6); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:#fff; flex-shrink:0; }
+  .user-info { flex:1; }
+  .user-info .name { font-size:16px; font-weight:600; color:#e2e6ed; }
+  .user-info .desc { font-size:13px; color:#7b8496; margin-top:2px; }
+
+  .big-num { font-size:72px; font-weight:800; color:#3b82f6; line-height:1; }
+  .big-num-label { font-size:18px; color:#7b8496; margin-top:4px; }
+
+  .arrow-down { text-align:center; color:#3b82f6; font-size:20px; margin:8px 0; }
+
+  .nav-hint { position:fixed; bottom:24px; right:32px; color:rgba(255,255,255,0.25); font-size:13px; z-index:10; }
+
+  /* Animations */
+  .slide.active .fade-up { animation:fadeUp 0.6s ease both; }
+  .slide.active .fade-up:nth-child(2) { animation-delay:0.1s; }
+  .slide.active .fade-up:nth-child(3) { animation-delay:0.2s; }
+  .slide.active .fade-up:nth-child(4) { animation-delay:0.3s; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  .slide.active .reveal { animation:reveal 0.5s ease both; }
+  @keyframes reveal { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+
+  .slide.section { justify-content:center; align-items:center; text-align:center; }
+  .slide.section h2 { font-size:48px; margin-bottom:16px; }
+  .slide.section .sub { font-size:20px; color:#7b8496; }
+
+  .slide.split-bg { background:linear-gradient(135deg, #0a0e17 60%, #131d2e 100%); }
+
+  .progress { position:fixed; top:16px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:10; }
+  .progress .dot { width:32px; height:3px; border-radius:2px; background:rgba(255,255,255,0.1); transition:all 0.3s; }
+  .progress .dot.active { background:#3b82f6; width:48px; }
+
+  small { color:#7b8496; font-size:13px; }
+  strong { color:#e2e6ed; }
+  em { font-style:italic; color:#8896a8; }
+
+  .conclusion-block { background:rgba(59,130,246,0.04); border:1px solid rgba(59,130,246,0.12); border-radius:16px; padding:24px 30px; margin-bottom:14px; }
+  .conclusion-block h4 { margin-top:0; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="stage" id="stage">
+
+  <!-- Slide 1: Cover -->
+  <div class="slide cover active">
+    <div style="position:relative;z-index:1;">
+      <div class="tag fade-up">用户研究 · 线下调研</div>
+      <h1 class="fade-up">天团线下调研<br>青岛 / 潍坊</h1>
+      <div class="meta fade-up">2026年7月3日 — 7月5日 · 12位用户 · 体验侧双关互动渗透专项</div>
+    </div>
+    <div class="deco"></div>
+  </div>
+
+  <!-- Slide 2: Background -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">01</span>访谈背景与目标</h2>
+    <div class="cols fade-up">
+      <div>
+        <div class="card highlight">
+          <h4 style="margin-top:0;">业务背景</h4>
+          <p style="color:#bcc5d4;line-height:1.7;font-size:17px;">体验侧业务指标之一为<strong>双关互动渗透</strong>。Q3 计划以<strong>天团为抓手</strong>，授权有能力的团长承接"萌新接待房"等活动主题房，覆盖低双关/0双关用户，帮助其在歌房中快速建立社交关系。</p>
+        </div>
+      </div>
+      <div>
+        <div class="card gold">
+          <h4 style="margin-top:0;">三大访谈目标</h4>
+          <ul>
+            <li class="gold">明确<strong>有能力承接的团长画像</strong>，以便规模化发现</li>
+            <li class="gold">了解团长<strong>运营动力 & 所需支持</strong>，放大天团价值</li>
+            <li class="gold">摸清<strong>天团运营现状与痛点</strong>，输出 SOP 培训体系</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Basic Info -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">02</span>访谈基本信息</h2>
+    <div class="cols fade-up">
+      <div style="flex:1;">
+        <div class="stat-row">
+          <div class="stat"><div class="num">12</div><div class="label">参与用户</div></div>
+          <div class="stat"><div class="num">3天</div><div class="label">调研时长</div></div>
+          <div class="stat"><div class="num">2城</div><div class="label">覆盖城市</div></div>
+        </div>
+        <div class="card" style="margin-top:20px;">
+          <ul>
+            <li><strong>时间：</strong>2026年7月3日（周五）— 7月5日（周日）</li>
+            <li><strong>目的地：</strong>青岛、潍坊</li>
+            <li><strong>对象：</strong>9位团长/副团 + 3位团员，共12位</li>
+            <li><strong>形式：</strong>面对面深度访谈 + 聚餐观察</li>
+          </ul>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div class="tag-row" style="margin-top:20px;">
+          <span class="chip">🎤 音乐人</span><span class="chip amber">🏠 全职在家</span><span class="chip green">🎓 学生</span>
+          <span class="chip purple">💼 自由职业</span><span class="chip">👥 团长/副团</span><span class="chip amber">⭐ 金团/粉团</span>
+          <span class="chip green">🎯 变现诉求</span><span class="chip purple">🎵 配音达人</span>
+        </div>
+        <p style="color:#7b8496;margin-top:24px;font-size:15px;line-height:1.7;">覆盖不同类型天团（金团/粉团）、不同角色（团长/副团/团员）、不同年龄层（18-40岁）的用户群体</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Core Conclusions 1 -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">03</span>核心结论（上）</h2>
+    <div class="grid-2 fade-up">
+      <div class="conclusion-block">
+        <h4>🎯 能力团长用户画像</h4>
+        <div class="tag-row" style="margin-bottom:10px;">
+          <span class="chip">时间极度充裕</span><span class="chip amber">强社交主动性</span><span class="chip green">懂管理</span><span class="chip purple">变现意愿强</span><span class="chip">有人格魅力</span>
+        </div>
+        <p style="color:#8896a8;font-size:15px;line-height:1.6;">如何找到：日常参赛积极/号召力强的团长；歌房主动活跃/社交关系多的用户；运营超6个月且有马甲+管理层分工的天团</p>
+      </div>
+      <div class="conclusion-block" style="border-color:rgba(245,158,11,0.12);">
+        <h4>🏆 团长核心驱动力</h4>
+        <div class="grid-2">
+          <div><span style="color:#fcd34d;">📢 名气影响力</span><br><small>让更多人知道自己的天团</small></div>
+          <div><span style="color:#60a5fa;">🤝 社交归属感</span><br><small>现实压力的出口，志同道合</small></div>
+          <div><span style="color:#6ee7b7;">📈 涨粉变现</span><br><small>官方活动是最快涨粉渠道</small></div>
+          <div><span style="color:#c4b5fd;">🏅 荣誉身份认同</span><br><small>勋章、称号、音乐人认证</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 fade-up" style="margin-top:8px;">
+      <div class="conclusion-block" style="border-color:rgba(16,185,129,0.12);">
+        <h4>🎁 奖励偏好排序</h4>
+        <p style="color:#bcc5d4;font-size:16px;">荣誉加持（音乐人推优）> 流量扶持（红包）> 现金/实物 > 虚拟装扮（勋章/守护/弹幕皮肤/头像框）</p>
+      </div>
+      <div class="conclusion-block" style="border-color:rgba(139,92,246,0.12);">
+        <h4>📋 SOP 培训重点</h4>
+        <p style="color:#bcc5d4;font-size:16px;">分工手册 · 新人破冰话术 · 副团/助理激励方法 · 接待流程标准化</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Core Conclusions 2 + Section divider feel -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">04</span>核心结论（下）</h2>
+    <div class="cols fade-up">
+      <div>
+        <div class="card purple">
+          <h4 style="margin-top:0;">🔧 功能完善建议</h4>
+          <ul>
+            <li class="purple">私信：一键清理未读、拍照发图、@人优化</li>
+            <li class="purple">天团群聊增加<strong>发红包</strong>功能</li>
+            <li class="purple"><strong>天团勋章墙</strong> — 永久佩戴激励更强</li>
+            <li class="purple">曲库版权扩充（林俊杰/周杰伦/薛之谦）</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card green">
+          <h4 style="margin-top:0;">🌍 生态治理</h4>
+          <ul>
+            <li class="green">评论区涉黄/软色情广告泛滥，举报无效</li>
+            <li class="green">恶意诋毁、"黑红"引战现象</li>
+            <li class="green">财阀团/人气团拉低社区素质</li>
+            <li class="green">歌房流量：总感觉是同一批人，缺新人</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">💡 活动反馈</h4>
+          <p style="color:#bcc5d4;font-size:16px;line-height:1.6;"><strong>天团PK赛：全员好评</strong> — 调动凝聚力、提升名气。但商业化活动过于频繁，感觉"圈钱"，希望更多好玩玩法。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Who Are They - Profile -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">05</span>他们是谁：团长管理团队画像（9位）</h2>
+    <div class="grid-4 fade-up" style="margin-bottom:20px;">
+      <div class="stat"><div class="num">👨5:4👩</div><div class="label">性别分布</div></div>
+      <div class="stat"><div class="num">18-40岁</div><div class="label">年龄跨度</div></div>
+      <div class="stat"><div class="num">无全职</div><div class="label">工作状态</div></div>
+      <div class="stat"><div class="num">初/高中+</div><div class="label">学历分布</div></div>
+    </div>
+    <div class="card highlight fade-up">
+      <h4 style="margin-top:0;">五大共性特征（9/9 → 4/6）</h4>
+      <div class="grid-2" style="gap:12px;">
+        <div>
+          <p style="color:#60a5fa;font-weight:700;">⏰ ① 空闲时间极多（9/9）</p>
+          <p style="color:#8896a8;font-size:15px;">无全职工作，日均在线4-12小时，全天泡在歌房</p>
+        </div>
+        <div>
+          <p style="color:#f59e0b;font-weight:700;">💰 ② 强烈变现意愿（5/6）</p>
+          <p style="color:#8896a8;font-size:15px;">对流量敏感，关注涨粉、作品热度、新人数量</p>
+        </div>
+        <div>
+          <p style="color:#10b981;font-weight:700;">🤝 ③ 爱交朋友（5/6）</p>
+          <p style="color:#8896a8;font-size:15px;">主动交友破冰，邀请优质用户加入天团</p>
+        </div>
+        <div>
+          <p style="color:#8b5cf6;font-weight:700;">⭐ ④ 有人格魅力（4/6）</p>
+          <p style="color:#8896a8;font-size:15px;">平等相处型 or 人设领导型，团员乐意跟随</p>
+        </div>
+        <div>
+          <p style="color:#ec4899;font-weight:700;">📐 ⑤ 有管理意识（5/6）</p>
+          <p style="color:#8896a8;font-size:15px;">马甲制度、管理层分工、积分考核、筛选输送制</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: User quotes -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">06</span>团长原声精选</h2>
+    <div class="grid-2 fade-up">
+      <div class="quote"><span class="speaker">朱囧：</span>"很多现实的孩子都是有抑郁症的……就是陪伴嘛……如果现实本来就是很内敛的一些孩子们，这样的感觉会让他们更助于成长。"</div>
+      <div class="quote"><span class="speaker">司糖：</span>"唱的好听的没有理由不互关，你把他牢牢抓住，牢牢留住……挖来就变成自己人了，很得劲啊。"</div>
+      <div class="quote"><span class="speaker">Lee：</span>"带马甲就是让他有个归属感……我们这有点利用小朋友了，你给他个职务，他不给你上副团长，他也能给你可命干活。"</div>
+      <div class="quote"><span class="speaker">文叔：</span>"回森做天团实际上和做公司是一样……按公司的规章制度、章程，就按公司架构来做。"</div>
+      <div class="quote"><span class="speaker">海胆：</span>"我每玩一个东西，我就想玩到最好……我不觉得大家都会认识阿尔法，我觉得还挺有成就感的。"</div>
+      <div class="quote"><span class="speaker">零六九零：</span>"你去要求人家，感觉给人家造成一些压力，那就不好了……大家在一块的好朋友嘛。"</div>
+      <div class="quote"><span class="speaker">念离予安：</span>"我们已经把阿尔法当我们这个团当一个家了……五湖四海的各位能凑到一块，这就是一个很好的事情。"</div>
+      <div class="quote"><span class="speaker">婷宝：</span>"时间久了就像家人一样……已经形成了一种习惯，就相互依赖，就像彼此离不开谁。"</div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Operation - Motivation -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">07</span>天团运营现状：建团动机</h2>
+    <div class="grid-2 fade-up">
+      <div class="card highlight">
+        <div style="font-size:48px;margin-bottom:8px;">🏰</div>
+        <h4 style="margin-top:0;">不愿居于人下</h4>
+        <p style="color:#bcc5d4;line-height:1.6;">从没加过别人团，一直自己做，慢慢做上来</p>
+        <div class="chip" style="margin-top:8px;">1/6 团长</div>
+      </div>
+      <div class="card gold">
+        <div style="font-size:48px;margin-bottom:8px;">📢</div>
+        <h4 style="margin-top:0;">建立个人影响力</h4>
+        <p style="color:#bcc5d4;line-height:1.6;">粉丝变现 · 人多排面 · 天团厂牌名气</p>
+        <div class="chip amber" style="margin-top:8px;">3/6 团长</div>
+      </div>
+      <div class="card green">
+        <div style="font-size:48px;margin-bottom:8px;">🕊️</div>
+        <h4 style="margin-top:0;">不满别团束缚</h4>
+        <p style="color:#bcc5d4;line-height:1.6;">想自己建团聚集志同道合的朋友一起玩</p>
+        <div class="chip green" style="margin-top:8px;">2/6 团长</div>
+      </div>
+      <div class="card purple">
+        <div style="font-size:48px;margin-bottom:8px;">💝</div>
+        <h4 style="margin-top:0;">享受帮助他人</h4>
+        <p style="color:#bcc5d4;line-height:1.6;">成为他人的精神寄托，提供现实世界的避风港</p>
+        <div class="chip purple" style="margin-top:8px;">1/6 团长</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Management Mechanisms -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">08</span>天团运营现状：管理机制</h2>
+    <div class="cols fade-up">
+      <div>
+        <div class="card highlight">
+          <h4 style="margin-top:0;">🔍 招新三大场景</h4>
+          <div class="tag-row">
+            <span class="chip">歌房邀请/开房招新</span><span class="chip amber">作品招新</span><span class="chip green">招新小雷达</span>
+          </div>
+        </div>
+        <div class="card gold">
+          <h4 style="margin-top:0;">👔 管理层分工（3/6团）</h4>
+          <ul>
+            <li class="gold">招新 / 审核 / 团作生产</li>
+            <li class="gold">群管理 / 不活跃清理</li>
+            <li class="gold">活动报名 / 拉票 / 改马甲督促</li>
+            <li class="gold">管理层有<strong>单独微信群</strong>沟通</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card purple">
+          <h4 style="margin-top:0;">🎭 御下之术（2/6团）</h4>
+          <ul>
+            <li class="purple">虚拟头衔驱动：副团配2个助理</li>
+            <li class="purple">麦上夸奖，赋予特权地位</li>
+            <li class="purple">生日仪式：团长→副团→团员层层关怀</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h4 style="margin-top:0;">📏 制度共识（4/6团）</h4>
+          <ul>
+            <li class="green"><strong>筛选输送制：</strong>粗筛→精选→尖刀组</li>
+            <li class="green"><strong>马甲要求：</strong>进团24h佩戴，荣誉感+归属感</li>
+            <li class="green"><strong>积分考核：</strong>日70分/周300分保底</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Members Perspective -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">09</span>团员视角：入团预期 & 参与动力</h2>
+    <div class="cols fade-up">
+      <div>
+        <h3>🎯 入团预期</h3>
+        <div class="card highlight">
+          <h4 style="margin-top:0;">交友归属 > 跟随团长 > 唱歌</h4>
+          <p style="color:#bcc5d4;line-height:1.7;font-size:16px;">大部分人在入团后迅速建立社交关系并找到归属感。"我们已经把阿尔法当一个家了" — 念离予安</p>
+        </div>
+        <div class="card gold">
+          <h4 style="margin-top:0;">对团长的看法</h4>
+          <p style="color:#bcc5d4;line-height:1.7;font-size:16px;">像<strong>大家长</strong>、社交关系的主心骨。有能力有担当，是把利益拿出来分给团员的"家长"。</p>
+        </div>
+      </div>
+      <div>
+        <h3>⚡ 活动参与动力</h3>
+        <div class="card green">
+          <ul>
+            <li class="green"><strong>涨粉：</strong>"官方的活动涨粉比较快，一个星期涨那么多粉丝"</li>
+            <li class="green"><strong>认识新朋友：</strong>跨天团社交，见识更多优质的人</li>
+            <li class="green"><strong>新鲜感：</strong>"前一两周刚出的话比较新颖"</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">📊 促活方法</h4>
+          <ul>
+            <li>自投入奖励：第一个发作品刷钻石</li>
+            <li>组织歌房：踩房、游戏、聊天、打游戏</li>
+            <li>微信群：聊天、发红包</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11: How to Motivate -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">10</span>如何牵引用户为平台"干活"</h2>
+    <div class="cols fade-up">
+      <div>
+        <div class="card highlight">
+          <h4 style="margin-top:0;">📋 承办官方活动意愿</h4>
+          <div class="big-num">5/6</div>
+          <div class="big-num-label">团长愿意承接萌新接待房</div>
+          <p style="color:#bcc5d4;margin-top:12px;line-height:1.6;">动力：涨粉扩列招新 + 公益性成就感 + 变现潜力</p>
+          <p style="color:#7b8496;font-size:14px;">*1位团长（海胆）因招新标准高，积极性稍低，但若官方邀请也会做</p>
+        </div>
+      </div>
+      <div>
+        <div class="card gold">
+          <h4 style="margin-top:0;">🏆 有牵引力的奖励排序</h4>
+          <div class="stat-row">
+            <div class="stat"><div class="num" style="font-size:28px;">🥇</div><div class="label">荣誉加持<br>音乐人推优 6/6</div></div>
+            <div class="stat"><div class="num" style="font-size:28px;">🥈</div><div class="label">流量扶持<br>红包+推荐 2/6</div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><div class="num" style="font-size:28px;">🥉</div><div class="label">虚拟装扮<br>勋章/守护 5-6/6</div></div>
+            <div class="stat"><div class="num" style="font-size:28px;">4</div><div class="label">现金奖励<br>钻 70-80元/2-3h</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 12: Summary & Next Steps -->
+  <div class="slide">
+    <h2 class="fade-up"><span class="num">11</span>总结 & 下一步建议</h2>
+    <div class="grid-3 fade-up">
+      <div class="card highlight">
+        <h4 style="margin-top:0;">🎯 找到更多团长</h4>
+        <ul>
+          <li>日常参赛积极 + 号召力强</li>
+          <li>社交关系多 + 歌房主动活跃</li>
+          <li>运营超过6个月 + 有分工的天团</li>
+          <li>优先覆盖金团团长</li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4 style="margin-top:0;">📝 输出 SOP 体系</h4>
+        <ul>
+          <li class="gold">分工手册（招新/审核/团作/促活）</li>
+          <li class="gold">新人破冰话术 + 接待流程</li>
+          <li class="gold">副团/助理激励方法</li>
+          <li class="gold">借鉴优秀团长运营模式</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <h4 style="margin-top:0;">🔧 产品优化</h4>
+        <ul>
+          <li class="green">私信基建（清未读/发图/@人）</li>
+          <li class="green">天团群聊红包</li>
+          <li class="green">天团勋章墙（永久佩戴）</li>
+          <li class="green">曲库版权 + 生态治理</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card fade-up" style="margin-top:18px;text-align:center;background:rgba(59,130,246,0.06);">
+      <p style="font-size:18px;color:#93bbf0;"><strong>预期飞轮：</strong>找到能力团长 → 授权承接活动 → 覆盖低双关用户 → 提升双关渗透 → 更多团长加入 → 天团生态自运转</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-hint">← → 方向键翻页 · 共11页</div>
+
+<script>
+(function() {
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var idx = 0;
+
+  // Progress dots
+  var progress = document.getElementById('progress');
+  for (var i = 0; i < total; i++) {
+    var dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.dataset.i = i;
+    dot.onclick = function() { go(parseInt(this.dataset.i)); };
+    progress.appendChild(dot);
+  }
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[idx].classList.remove('active');
+    progress.children[idx].classList.remove('active');
+    idx = n;
+    slides[idx].classList.add('active');
+    progress.children[idx].classList.add('active');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(idx - 1); }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.progress')) return;
+    var w = window.innerWidth;
+    if (e.clientX > w / 2) go(idx + 1); else go(idx - 1);
+  });
+
+  // Touch
+  var startX = 0;
+  document.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; });
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) { if (dx < 0) go(idx + 1); else go(idx - 1); }
+  });
+})();
+</script>
+</body>
+</html>
